@@ -1,0 +1,20 @@
+syntax = "proto3";
+package protoc;
+
+message PoseStamped {
+    string seq = 1;
+    string stamp = 2;
+    string frame_id = 3;
+    Pose pose = 4;
+    
+}
+
+message Pose{
+    float px = 1;
+    float py = 2;
+    float pz = 3;
+    float ox = 4;
+    float oy = 5;
+    float oz = 6;
+    float ow = 7;
+}
