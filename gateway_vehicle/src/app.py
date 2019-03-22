@@ -69,12 +69,12 @@ class msg_handler:
     def __init__(self):
         config_file = rospy.get_param("~config_file")
         self.config = Config(config_file)
-        rospy.Subscriber("/vehicle_state", Message_type, self._update_state)
-
-    def _update_state(self, msg):
-        self.state = msg.
-        self.velocity = msg.
-        self.angle = msg.
+        # rospy.Subscriber("/vehicle_state", Message_type, self._update_state)
+    # TODO: 定义ecu返回车辆消息,并做相应处理
+    # def _update_state(self, msg):
+    #     self.state = msg.
+    #     self.velocity = msg.
+    #     self.angle = msg.
 
     def _init_data(self):
         data = {}
