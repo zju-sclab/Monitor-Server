@@ -33,6 +33,7 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <smartcar_msgs/Lane.h>
 #include <smartcar_msgs/Waypoint.h>
+#include <tf/transform_broadcaster.h>
 
 namespace VISUALIZATION_V1 {
 class monitor {
@@ -44,6 +45,7 @@ private:
     std::map<std::string, ros::Publisher> pub_current_text;
 
     ros::Publisher pub_global_map;
+    tf::TransformBroadcaster tf_broadcaster_;
 
     void load_map(std::string file);
 
@@ -134,6 +136,10 @@ void monitor::car_pose_cb(const monitor_msgs::PoseStateConstPtr msg)
     std::map<std::string, ros::Publisher>::iterator it = pub_current_pose_car.find(car_id);
     it->second.publish(car_model);
     pub_car_state_message(msg);
+
+    geometry_msgs::Point p = msg->pose.pose.position;
+    tf::Transform transform2(quat, tf::Vector3(p.x, p.y, p.z));
+    tf_broadcaster_.sendTransform(tf::StampedTransform(transform2, msg->pose.header.stamp, "/map", "/car"+car_id+"_link"));
 }
 
 void monitor::pub_car_state_message(const monitor_msgs::PoseStateConstPtr msg)
@@ -156,9 +162,15 @@ void monitor::pub_car_state_message(const monitor_msgs::PoseStateConstPtr msg)
 
     std::stringstream text;
     text << "Vin: " << msg->vin << "\n";
-    text << "Type: "
-         << "Simulation"
-         << "\n";
+    if (int(msg->vin[12]) == 0) {
+        text << "Type: "
+             << "Realcar"
+             << "\n";
+    }else{
+        text << "Type: "
+             << "Simulation"
+             << "\n";
+    }
     text << "Shift: "
          << "Undefined"
          << "\n";

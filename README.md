@@ -13,9 +13,13 @@ Details could be refered to [vehicle2server_protocol.md](YunleProtocol/vehicle2s
 > 3. multi-monitor of vehicles is supported
 > 4. using rviz to conduct visualization function, both 2D/3D
 
+### Update
+> 1. 20190324 add view-tracking function
+
 ### TODO
-1. Currently, only the monitor of current-pose has been finished.  
-2. Multi-monitor of vehicles is supported but never tested.  
-3. The effects of visualization should be promoted.
+- [ ] Currently, only the monitor of current-pose has been finished.  
+- [ ] Multi-monitor of vehicles is supported but never tested.  
+- [ ] The effects of visualization should be promoted.  
+- [ ] Add dynamic switch to on/off showing message.
 
 ### Attention:
