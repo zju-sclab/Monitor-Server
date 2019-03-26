@@ -2,7 +2,8 @@
 # -*-encoding:utf-8-*-
 import ConfigParser
 import json
-import threading, thread
+import threading
+import thread
 from Queue import Queue, Empty
 
 import rosnode
@@ -18,8 +19,10 @@ from twisted.internet import reactor
 from geometry_msgs.msg import PoseStamped
 from monitor_msgs.msg import PoseState
 import json
-# HOST = 'localhost'
+
 PORT = 9999
+
+Debug = False
 
 
 class message_handler():
@@ -51,11 +54,13 @@ class message_handler():
         pose_state.pose.pose.orientation.y = data_dict['data']['pose']['orientation'][1]
         pose_state.pose.pose.orientation.z = data_dict['data']['pose']['orientation'][2]
         pose_state.pose.pose.orientation.w = data_dict['data']['pose']['orientation'][3]
-        car_id = int(data_dict['carId'][-4:])  # 以后5位表示车辆编号,其中倒数第五位表示车辆类型(real/simu/..etc)       
-        
+        # 以后5位表示车辆编号,其中倒数第五位表示车辆类型(real/simu/..etc)
+        car_id = int(data_dict['carId'][-4:])
+
         if car_id not in self.pub_car_pose:
             topic = "/carx/current_state"
-            self.pub_car_pose[car_id] = rospy.Publisher(topic, PoseState, queue_size=10)
+            self.pub_car_pose[car_id] = rospy.Publisher(
+                topic, PoseState, queue_size=10)
         self.pub_car_pose[car_id].publish(pose_state)
 
 
@@ -71,6 +76,7 @@ class MonitorProtocol(LineReceiver):
             self.message_handler._current_pose_cb(data_dict)
 
     def connectionLost(self, reason):
+        print(reason)
         print("connection lost")
 
 
@@ -90,6 +96,8 @@ class GatewayServer(Factory):
 class APP():
     def run(self):
         rospy.init_node("gataway_server")
+        Debug = rospy.get_param("~debug", False)
+        print("Debug? : ", Debug)
         factory = GatewayServer()
         print("waiting for connection...")
         reactor.listenTCP(PORT, factory)

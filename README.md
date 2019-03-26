@@ -21,6 +21,7 @@ Details could be refered to [vehicle2server_protocol.md](YunleProtocol/vehicle2s
     - [x] Position
     - [ ] Vehicle state: speed/steer/shift
     - [ ] Vechile state: odometry/battery remaining 
+    - [ ] Current trajectory path
 - [ ] Test Multi-monitor of vehicles.  
 - [ ] Promote visualization functions in RVIZ.  
     - [x] Supprot view tracking of single vehicle.

@@ -97,20 +97,6 @@ void monitor::load_map(std::string file)
     std::cout << "Success load map: " << file << std::endl;
 }
 
-// void monitor::car_pose_cb(const geometry_msgs::PoseStampedConstPtr& msg)
-// {
-//     visualization_msgs::Marker car_model = marker_initial();
-//     car_model.header.stamp = ros::Time::now();
-//     car_model.pose.position = msg->pose.position;
-//     double current_roll, current_yaw, current_pitch;
-//     tf::Quaternion quat;
-//     tf::quaternionMsgToTF(msg->pose.orientation, quat);
-//     tf::Matrix3x3(quat).getRPY(current_roll, current_pitch, current_yaw);
-//     car_model.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(90 * (M_PI / 180.0), 0 * (M_PI / 180.0), current_yaw + M_PI / 2.0);
-//     //    pub_car0_model.publish(car_model);
-//     // ros::Duration(0.05).sleep();
-// }
-
 void monitor::car_pose_cb(const monitor_msgs::PoseStateConstPtr msg)
 {
     visualization_msgs::Marker car_model = marker_initial();
@@ -126,7 +112,8 @@ void monitor::car_pose_cb(const monitor_msgs::PoseStateConstPtr msg)
         pub = nh.advertise<visualization_msgs::Marker>(topic, 10);
         pub_current_pose_car.insert(std::pair<std::string, ros::Publisher>(car_id, pub));
     }
-    car_model.header.stamp = msg->pose.header.stamp;
+    // car_model.header.stamp = msg->pose.header.stamp;
+    car_model.header.stamp = ros::Time::now();
     car_model.pose.position = msg->pose.pose.position;
     double current_roll, current_yaw, current_pitch;
     tf::Quaternion quat;
@@ -139,7 +126,8 @@ void monitor::car_pose_cb(const monitor_msgs::PoseStateConstPtr msg)
 
     geometry_msgs::Point p = msg->pose.pose.position;
     tf::Transform transform2(quat, tf::Vector3(p.x, p.y, p.z));
-    tf_broadcaster_.sendTransform(tf::StampedTransform(transform2, msg->pose.header.stamp, "/map", "/car"+car_id+"_link"));
+    // tf_broadcaster_.sendTransform(tf::StampedTransform(transform2, msg->pose.header.stamp, "/map", "/car"+car_id+"_link"));
+    tf_broadcaster_.sendTransform(tf::StampedTransform(transform2, ros::Time::now(), "/map", "/car" + car_id + "_link"));
 }
 
 void monitor::pub_car_state_message(const monitor_msgs::PoseStateConstPtr msg)
@@ -152,7 +140,8 @@ void monitor::pub_car_state_message(const monitor_msgs::PoseStateConstPtr msg)
         pub_current_text.insert(std::pair<std::string, ros::Publisher>(car_id, pub));
     }
     visualization_msgs::Marker msg_text = make_car_message();
-    msg_text.header.stamp = msg->pose.header.stamp;
+    // msg_text.header.stamp = msg->pose.header.stamp;
+    msg_text.header.stamp = ros::Time::now();
 
     geometry_msgs::Point message_pose;
     message_pose.x = msg->pose.pose.position.x + 5.0;
@@ -166,7 +155,7 @@ void monitor::pub_car_state_message(const monitor_msgs::PoseStateConstPtr msg)
         text << "Type: "
              << "Realcar"
              << "\n";
-    }else{
+    } else {
         text << "Type: "
              << "Simulation"
              << "\n";
@@ -189,7 +178,7 @@ visualization_msgs::Marker monitor::marker_initial()
 {
     visualization_msgs::Marker marker_car;
     marker_car.header.frame_id = "map";
-    marker_car.header.stamp = ros::Time();
+    marker_car.header.stamp = ros::Time::now();
     marker_car.ns = "/car/model";
     marker_car.id = 0;
     marker_car.type = visualization_msgs::Marker::MESH_RESOURCE;
@@ -212,7 +201,7 @@ visualization_msgs::Marker monitor::make_car_message()
     visualization_msgs::Marker marker_message;
     marker_message.header.frame_id = "map";
     marker_message.ns = "/car/state";
-    // marker_message.header.stamp = ros::Time::now();
+    marker_message.header.stamp = ros::Time::now();
     marker_message.action = visualization_msgs::Marker::ADD;
     marker_message.type = visualization_msgs::Marker::TEXT_VIEW_FACING;
     marker_message.id = 0;
