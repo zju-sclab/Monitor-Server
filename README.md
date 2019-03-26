@@ -23,8 +23,15 @@ Details could be refered to [vehicle2server_protocol.md](YunleProtocol/vehicle2s
     - [ ] Vechile state: odometry/battery remaining 
     - [ ] Current trajectory path
 - [ ] Test Multi-monitor of vehicles.  
+    - [x] Two car is tested(simulation)
+    - [ ] under simulation and real world car
 - [ ] Promote visualization functions in RVIZ.  
     - [x] Supprot view tracking of single vehicle.
     - [ ] Add dynamic switch to on/off showing message.
+        - [x] Function is added
+        - [ ] add Switch of showing car-message
+        - [ ] add Switch of current-trajectory path
+        - [ ] add Switch of odom/battery
+    - [ ] Allow switch between different maps(*under 2D, position.z=0)
 
 ### Attention:
