@@ -17,9 +17,13 @@ Details could be refered to [vehicle2server_protocol.md](YunleProtocol/vehicle2s
 > 1. 20190324 add view-tracking function
 
 ### TODO
-- [ ] Currently, only the monitor of current-pose has been finished.  
-- [ ] Multi-monitor of vehicles is supported but never tested.  
-- [ ] The effects of visualization should be promoted.  
-- [ ] Add dynamic switch to on/off showing message.
+- [ ] Add monitored messages.  
+    - [x] Position
+    - [ ] Vehicle state: speed/steer/shift
+    - [ ] Vechile state: odometry/battery remaining 
+- [ ] Test Multi-monitor of vehicles.  
+- [ ] Promote visualization functions in RVIZ.  
+    - [x] Supprot view tracking of single vehicle.
+    - [ ] Add dynamic switch to on/off showing message.
 
 ### Attention:
