@@ -88,20 +88,12 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Class: rviz/Marker
+    - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /car0001/model
-      Name: car0001_model
+      Marker Topic: /car0002
+      Name: MarkerArray
       Namespaces:
-        /car/model: true
-      Queue Size: 100
-      Value: true
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /car0001/state
-      Name: car0001_state
-      Namespaces:
-        /car/state: true
+        "": true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -129,25 +121,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 29.8432446
+      Distance: 107.550606
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
+        X: 26.1954803
+        Y: 12.5465117
         Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.315398633
+      Pitch: 0.989797235
       Target Frame: car0001_link
       Value: ThirdPersonFollower (rviz)
-      Yaw: 3.07540441
+      Yaw: 4.67041302
     Saved:
       - Class: rviz/ThirdPersonFollower
         Distance: 29.8432446
@@ -186,4 +178,4 @@ Window Geometry:
     collapsed: false
   Width: 1920
   X: 0
-  Y: -4
+  Y: 24

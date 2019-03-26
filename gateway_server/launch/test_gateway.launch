@@ -1,5 +1,5 @@
 <launch>
-    <node pkg="gateway_server" type="app.py" name="gateway" output="screen">
+    <node pkg="gateway_server" type="app.py" name="gateway_server" output="screen">
         <!-- <param name="config_file" value="$(find gateway_vehicle)/config/config.ini"/> -->
         <param name="debug" value="true" />
     </node>

@@ -19,8 +19,12 @@ find_package(catkin REQUIRED COMPONENTS
   smartcar_msgs
   tf
   visualization_msgs
+  dynamic_reconfigure
 )
 
+generate_dynamic_reconfigure_options(
+  cfg/adjust_config.cfg
+)
 
 catkin_package(
 #  INCLUDE_DIRS include
@@ -47,3 +51,12 @@ add_dependencies(main
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
   ${catkin_EXPORTED_TARGETS}
 )
+
+add_executable(dynamic_visualization src/dynamic_visualization.cpp)
+target_link_libraries(dynamic_visualization ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+add_dependencies(dynamic_visualization
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_gencfg
+)
+
